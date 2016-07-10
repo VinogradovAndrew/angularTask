@@ -16,9 +16,16 @@
 
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.js"></script>
+
+
+
+
 <body ng-controller="MainController">
 
-<div class="main main-container container" ng-view></div>
+<my-header ></my-header>
+
+<div class="main main-container container" ui-view></div>
 
 
 

@@ -1,21 +1,33 @@
-var app = angular.module('simpleApp', ['ngRoute'])
+var app = angular.module('simpleApp', ['ui.router'])
 
-    .controller('MainController', function($scope, $route, $routeParams, $location) {
-        $scope.$route = $route;
-        $scope.$routeParams = $routeParams;
+    .controller('MainController', function($scope) {
 
+        //$scope.$routeParams = $routeParams;
+        debugger;
     })
-    .controller('LoginController', function($scope,$routeParams) {
+    .controller('LoginController', function($scope) {
         $scope.name = "LoginController";
+
+        $scope.master = {};
+
+        $scope.login = function(user){
+            debugger;
+            $scope.master = angular.copy(user);
+
+            return false;
+
+        };
+        debugger;
     })
 
-    .controller('CoursesListController', function($scope, $routeParams) {
+    .controller('CoursesListController', function($scope) {
         $scope.name = "CoursesListController";
-        $scope.params = $routeParams;
+        //$scope.params = $routeParams;
     })
-    .controller('CourseController', function($scope, $routeParams) {
+    .controller('CourseController', function($scope) {
         $scope.name = "CourseController";
-        $scope.params = $routeParams;
+        debugger;
+        //$scope.params = $routeParams;
     })
     .component('greetUser', {
         template: 'Hello, {{$ctrl.user}}!',
@@ -23,7 +35,32 @@ var app = angular.module('simpleApp', ['ngRoute'])
             this.user = 'world';
         }
     })
-    .config(function($routeProvider, $locationProvider) {
+    .config( function($stateProvider, $urlRouterProvider){
+        $urlRouterProvider.otherwise('/login');
+
+        $stateProvider
+            .state('login',{
+                url:'/login',
+                templateUrl:'view-login/view-login.tpl.html',
+                controller:'LoginController'
+            })
+
+            .state('courses',{
+                url: '/courses',
+                controller:'CoursesListController',
+                templateUrl:'view-videos-list/view-videos-list.tpl.html'
+            })
+            .state('courses.edit',{
+                url:'/edit/{courseId:[0-9]{1,4}}',
+                templateUrl:'view-videos-list/view-video/view-video.tpl.html',
+                controller:'MainController'
+            });
+    });
+
+
+
+
+    /*.config(function($routeProvider, $locationProvider) {
         $routeProvider
             .when('/',{
                 templateUrl:'view-login/view-login.tpl.html',
@@ -42,4 +79,4 @@ var app = angular.module('simpleApp', ['ngRoute'])
                templateUrl: 'view-videos-list/view-video/view-video.tpl.html',
                controller: 'CourseController'
         });
-    });
+    });*/

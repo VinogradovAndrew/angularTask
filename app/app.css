@@ -94,3 +94,10 @@ html,
 .center-block {
     margin:0 auto;
 }
+.login-form .error-message {
+    display:none;
+}
+
+.login-form.ng-invalid.ng-submitted .error-message {
+    display:block;
+}
